@@ -28,6 +28,12 @@ func (al *List) Populate() *List {
 
 	for _, group := range al.appConfig.CustomApps {
 		group.Group = strings.ToLower(group.Group)
+		for i, app := range group.Apps {
+			if app.Location == 0 {
+				app.Location = 1000
+			}
+			group.Apps[i] = app
+		}
 		customApps = append(customApps, group)
 	}
 

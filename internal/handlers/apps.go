@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"sort"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
@@ -63,6 +64,11 @@ func (rs *appResource) ListApps(w http.ResponseWriter, r *http.Request) {
 				customApps = append(customApps[:x], customApps[x+1:]...)
 			}
 		}
+
+		sort.Slice(kubeApps[i].Apps, func(j, k int) bool {
+			logger.Debugf("App %v is at location %v", kubeApps[i].Apps[j].Name, kubeApps[i].Apps[j].Location)
+			return kubeApps[i].Apps[j].Location < kubeApps[i].Apps[k].Location
+		})
 	}
 
 	apps = append(kubeApps, customApps...)

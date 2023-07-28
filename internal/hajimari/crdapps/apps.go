@@ -97,6 +97,7 @@ func appsToHajimariApps(apps []unstructured.Unstructured) (appGroups []models.Ap
 				URL:         wrapper.GetURL(),
 				TargetBlank: wrapper.GetTargetBlank(),
 				Info:        wrapper.GetInfo(),
+				Location:    wrapper.GetLocation(),
 			})
 		}
 

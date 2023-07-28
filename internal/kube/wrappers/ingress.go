@@ -2,6 +2,7 @@ package wrappers
 
 import (
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/toboshii/hajimari/internal/annotations"
@@ -141,4 +142,19 @@ func (iw *IngressWrapper) getIngressSubPath() string {
 		}
 	}
 	return ""
+}
+
+func (iw *IngressWrapper) GetLocation() int {
+	defaultLocation := 1000
+
+	if locationFromAnnotation := iw.GetAnnotationValue(annotations.HajimariLocationAnnotation); locationFromAnnotation != "" {
+		i, err := strconv.ParseInt(locationFromAnnotation, 10, 0)
+		if err != nil {
+			return int(i)
+		} else {
+			logger.Warn("Failed to parse location annotation: ", err)
+			return defaultLocation
+		}
+	}
+	return defaultLocation
 }

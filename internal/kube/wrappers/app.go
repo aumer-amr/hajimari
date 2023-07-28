@@ -54,3 +54,7 @@ func (aw *AppWrapper) GetTargetBlank() bool {
 func (aw *AppWrapper) GetURL() string {
 	return aw.app.Spec.URL
 }
+
+func (aw *AppWrapper) GetLocation() int {
+	return aw.app.Spec.Location
+}
